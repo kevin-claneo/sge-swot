@@ -20,24 +20,24 @@ def setup_streamlit():
 
 
 
-# List of common industries
-industries = [
-    "Advertising & Marketing", "Aerospace & Defense", "Agriculture", 
-    "Automotive", "Banking & Finance", "Biotechnology", "Chemicals", 
-    "Construction", "Consumer Goods & Services", "Education", "Energy", 
-    "Entertainment & Leisure", "Food & Beverages", "Healthcare", "Hospitality", 
-    "Information Technology", "Insurance", "Manufacturing", "Media", 
-    "Pharmaceuticals", "Real Estate", "Retail", "Telecommunications", 
-    "Transportation & Logistics", "Utilities"
-]
-
-# Customer acquisition channels
-acquisition_channels = [
-    "Online Advertising", "Social Media", "Email Marketing", 
-    "Content Marketing", "SEO", "Affiliate Marketing", 
-    "Direct Sales", "Public Relations", "Trade Shows", 
-    "Word of Mouth", "Partnerships"
-]
+    # List of common industries
+    industries = [
+        "Advertising & Marketing", "Aerospace & Defense", "Agriculture", 
+        "Automotive", "Banking & Finance", "Biotechnology", "Chemicals", 
+        "Construction", "Consumer Goods & Services", "Education", "Energy", 
+        "Entertainment & Leisure", "Food & Beverages", "Healthcare", "Hospitality", 
+        "Information Technology", "Insurance", "Manufacturing", "Media", 
+        "Pharmaceuticals", "Real Estate", "Retail", "Telecommunications", 
+        "Transportation & Logistics", "Utilities"
+    ]
+    
+    # Customer acquisition channels
+    acquisition_channels = [
+        "Online Advertising", "Social Media", "Email Marketing", 
+        "Content Marketing", "SEO", "Affiliate Marketing", 
+        "Direct Sales", "Public Relations", "Trade Shows", 
+        "Word of Mouth", "Partnerships"
+    ]
 
 
 with st.form("seo_strategy_form"):
