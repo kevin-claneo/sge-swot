@@ -1,4 +1,25 @@
 import streamlit as st
+
+def setup_streamlit():
+    st.set_page_config(
+    page_title="SEO Strategy and SWOT Analysis - Kevin (Claneo)",
+    page_icon=":rotating_light:",
+    layout="wide",
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.linkedin.com/in/kirchhoff-kevin/',
+        'About': "This is an app for checking your topical authority! Adapted from Lee Foot's GSC-connector check out his apps: https://leefoot.co.uk"
+    }
+    )
+    st.image("https://www.claneo.com/wp-content/uploads/Element-4.svg", width=600, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
+    st.caption(":point_right: Join Claneo and support exciting clients as part of the Consulting team") 
+    st.caption(':bulb: Make sure to mention that *Kevin* brought this job posting to your attention')
+    st.link_button("Learn More", "https://www.claneo.com/en/career/#:~:text=Consulting")
+    st.title("Check the topical authority of a GSC property")
+    st.divider()
+
+
+
 # List of common industries
 industries = [
     "Advertising & Marketing", "Aerospace & Defense", "Agriculture", 
@@ -18,12 +39,11 @@ acquisition_channels = [
     "Word of Mouth", "Partnerships"
 ]
 
-st.title("SEO Strategy and SWOT Analysis Tool")
 
 with st.form("seo_strategy_form"):
+    setup_streamlit()
     # Select box for industry
     industry = st.selectbox("Select Your Industry", industries)
-
     # Sliders for various attributes
     company_size = st.slider("Company Size", 1, 10, 5)
     competitiveness = st.slider("Competitiveness", 1, 10, 5)
