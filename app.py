@@ -1,4 +1,6 @@
 import streamlit as st
+import matplotlib.pyplot as plt
+import openai
 
 def setup_streamlit():
     st.set_page_config(
@@ -38,29 +40,57 @@ def setup_streamlit():
         "Direct Sales", "Public Relations", "Trade Shows", 
         "Word of Mouth", "Partnerships"
     ]
+def openai_api_call(prompt):
+    openai.api_key = "YOUR_OPENAI_API_KEY"
+    response = openai.Completion.create(
+      engine="text-davinci-003",
+      prompt=prompt,
+      max_tokens=150
+    )
+    return response.choices[0].text
 
+def perform_swot_analysis(industry, company_size, competitiveness, resources_availability, seo_team_size, brand_strength):
+    # Placeholder logic for SWOT analysis
+    strengths = f"Strong brand presence in the {industry} industry."
+    weaknesses = f"Competitiveness in {industry} is high, impacting resources."
+    opportunities = "Opportunities to leverage advanced SEO strategies."
+    threats = "Rapid changes in SEO trends pose a potential threat."
 
-with st.form("seo_strategy_form"):
+    # Return a dictionary of SWOT elements
+    return {
+        "Strengths": strengths,
+        "Weaknesses": weaknesses,
+        "Opportunities": opportunities,
+        "Threats": threats
+    }
+
+def plot_swot_analysis(swot_data):
+    categories = list(swot_data.keys())
+    values = range(len(categories))
+
+    plt.bar(values, [10, 20, 30, 40])  # Example values, adjust as needed
+    plt.xticks(values, categories)
+    plt.ylabel("Importance")
+    plt.title("SWOT Analysis")
+
+    return plt
+
+def main():
     setup_streamlit()
-    # Select box for industry
-    industry = st.selectbox("Select Your Industry", industries)
-    # Sliders for various attributes
-    company_size = st.slider("Company Size", 1, 10, 5)
-    competitiveness = st.slider("Competitiveness", 1, 10, 5)
-    resources_availability = st.slider("Resources Availability", 1, 10, 5)
-    size_of_seo_team = st.slider("Size of SEO Team", 1, 10, 5)
-    brand_strength = st.slider("Brand Strength", 1, 10, 5)
 
-    # Multi-select box for customer acquisition channels
-    selected_acquisition_channels = st.multiselect("Customer Acquisition Channels", acquisition_channels)
+    with st.form("seo_strategy_form"):
+        # Collect user inputs as before
 
-    submitted = st.form_submit_button("Submit")
-    if submitted:
-        st.write("Submitted data: ")
-        st.write(f"Industry: {industry}")
-        st.write(f"Company Size: {company_size}, Competitiveness: {competitiveness}, Resources: {resources_availability}, SEO Team Size: {size_of_seo_team}, Brand Strength: {brand_strength}")
-        st.write(f"Acquisition Channels: {', '.join(selected_acquisition_channels)}")
+        submitted = st.form_submit_button("Submit")
+        if submitted:
+            swot_data = perform_swot_analysis(industry, company_size, competitiveness, resources_availability, seo_team_size, brand_strength)
+            swot_fig = plot_swot_analysis(swot_data)
+            st.pyplot(swot_fig)
 
-        # Here you can add the logic to process the input data and integrate with ChatGPT for analysis
+            # Example OpenAI API usage
+            swot_insights = openai_api_call("Provide detailed SEO strategies for a company in [industry] with strengths: [strengths], weaknesses: [weaknesses], opportunities: [opportunities], threats: [threats].")
+            st.write(swot_insights)
 
-# Additional logic for processing and ChatGPT integration goes here
+if __name__ == "__main__":
+    main()
+    
