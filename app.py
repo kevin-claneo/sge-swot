@@ -1,6 +1,4 @@
 import streamlit as st
-import matplotlib.pyplot as plt
-import openai
 
 def setup_streamlit():
     st.set_page_config(
@@ -40,56 +38,66 @@ def setup_streamlit():
         "Direct Sales", "Public Relations", "Trade Shows", 
         "Word of Mouth", "Partnerships"
     ]
-def openai_api_call(prompt):
-    openai.api_key = "YOUR_OPENAI_API_KEY"
-    response = openai.Completion.create(
-      engine="text-davinci-003",
-      prompt=prompt,
-      max_tokens=150
-    )
-    return response.choices[0].text
+    
+def setup_user_input_forms():
+    st.header("SWOT Analysis Input")
+    st.subheader("Please answer the following questions based on your company's current situation:")
 
-def perform_swot_analysis(industry, company_size, competitiveness, resources_availability, seo_team_size, brand_strength):
-    # Placeholder logic for SWOT analysis
-    strengths = f"Strong brand presence in the {industry} industry."
-    weaknesses = f"Competitiveness in {industry} is high, impacting resources."
-    opportunities = "Opportunities to leverage advanced SEO strategies."
-    threats = "Rapid changes in SEO trends pose a potential threat."
+    # Example of questions to assess the conditions for the SWOT analysis
+    resources_adaptable_to_SGE = st.select_slider("How adaptable are your resources to changes brought by SGE?", options=['Very Inflexible', 'Somewhat Inflexible', 'Neutral', 'Somewhat Adaptable', 'Very Adaptable'])
+    revenue_streams_resilient_to_SGE = st.radio("Are your revenue streams resilient to potential changes in organic search due to SGE?", ('Yes', 'Somewhat', 'No'))
+    employees_ready_for_AI = st.radio("Is your workforce ready for AI advancements and integration?", ('Yes', 'No'))
+    brand_recognized_in_SGE = st.radio("Do you believe your brand is strong enough to be recognized in SGE-driven search results?", ('Yes', 'No'))
+    customer_acquisition_channels_diversified = st.radio("Are your customer acquisition channels diversified beyond organic search?", ('Yes', 'No'))
+    content_uniquely_valuable = st.radio("Is your content uniquely valuable and difficult to replicate by AI?", ('Yes', 'No'))
+    market_growing_with_SGE = st.radio("Do you see the market growing with the advent of SGE?", ('Yes', 'No'))
+    competition_lagging_in_AI_adaptation = st.radio("Is your competition lagging in adapting to AI and SGE?", ('Yes', 'No'))
+    socio_political_trends_supportive_of_AI = st.radio("Are socio-political trends supportive of AI integration in your industry?", ('Yes', 'No'))
 
-    # Return a dictionary of SWOT elements
     return {
-        "Strengths": strengths,
-        "Weaknesses": weaknesses,
-        "Opportunities": opportunities,
-        "Threats": threats
+        "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
+        "revenue_streams_resilient_to_SGE": revenue_streams_resilient_to_SGE,
+        "employees_ready_for_AI": employees_ready_for_AI,
+        "brand_recognized_in_SGE": brand_recognized_in_SGE,
+        "customer_acquisition_channels_diversified": customer_acquisition_channels_diversified,
+        "content_uniquely_valuable": content_uniquely_valuable,
+        "market_growing_with_SGE": market_growing_with_SGE,
+        "competition_lagging_in_AI_adaptation": competition_lagging_in_AI_adaptation,
+        "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI
     }
 
-def plot_swot_analysis(swot_data):
-    categories = list(swot_data.keys())
-    values = range(len(categories))
+def perform_detailed_swot_analysis(user_inputs):
+    # Mapping user inputs to conditions
+    conditions = {
+        "resources_adaptable_to_SGE": "Very Adaptable" in user_inputs["resources_adaptable_to_SGE"],
+        "revenue_streams_resilient_to_SGE": user_inputs["revenue_streams_resilient_to_SGE"] == "Yes",
+        "employees_ready_for_AI": user_inputs["employees_ready_for_AI"] == "Yes",
+        "brand_recognized_in_SGE": user_inputs["brand_recognized_in_SGE"] == "Yes",
+        "customer_acquisition_channels_diversified": user_inputs["customer_acquisition_channels_diversified"] == "Yes",
+        "content_uniquely_valuable": user_inputs["content_uniquely_valuable"] == "Yes",
+        "market_growing_with_SGE": user_inputs["market_growing_with_SGE"] == "Yes",
+        "competition_lagging_in_AI_adaptation": user_inputs["competition_lagging_in_AI_adaptation"] == "Yes",
+        "socio_political_trends_supportive_of_AI": user_inputs["socio_political_trends_supportive_of_AI"] == "Yes"
+    }
 
-    plt.bar(values, [10, 20, 30, 40])  # Example values, adjust as needed
-    plt.xticks(values, categories)
-    plt.ylabel("Importance")
-    plt.title("SWOT Analysis")
-
-    return plt
-
+    # Assuming the advanced_swot_analysis function is adjusted to use these conditions
+    # Here you would call the advanced_swot_analysis function and pass the conditions
+    swot_analysis = advanced_swot_analysis(**conditions)
+    
+    return swot_analysis
+    
 def main():
-    setup_streamlit()
+    setup_streamlit()  # Your initial setup function
 
-    with st.form("seo_strategy_form"):
-        # Collect user inputs as before
+    user_inputs = setup_user_input_forms()
 
-        submitted = st.form_submit_button("Submit")
-        if submitted:
-            swot_data = perform_swot_analysis(industry, company_size, competitiveness, resources_availability, seo_team_size, brand_strength)
-            swot_fig = plot_swot_analysis(swot_data)
-            st.pyplot(swot_fig)
-
-            # Example OpenAI API usage
-            swot_insights = openai_api_call("Provide detailed SEO strategies for a company in [industry] with strengths: [strengths], weaknesses: [weaknesses], opportunities: [opportunities], threats: [threats].")
-            st.write(swot_insights)
+    if st.button("Perform SWOT Analysis"):
+        swot_results = perform_detailed_swot_analysis(user_inputs)
+        st.subheader("SWOT Analysis Results")
+        for category, factors in swot_results.items():
+            st.markdown(f"**{category}:**")
+            for factor in factors:
+                st.write(f"- {factor}")
 
 if __name__ == "__main__":
     main()
