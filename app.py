@@ -42,11 +42,10 @@ def setup_user_input_forms():
     st.subheader("Please answer the following questions based on your company's current situation:")
 
     # Additional inputs for business model, SEO model, etc.
-    business_model = st.selectbox("What is your business model?", ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "Other"])
+    business_model = st.selectbox("What is your business model?", ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "B2B-Services"])
     
     seo_model = st.selectbox("What is your SEO model?", ["Aggregator", "Integrator"])
-    # Info text about SEO model
-    with st.expander(":information_source: Learn more about SEO models"):
+    with st.expander("🛈 Learn more about SEO models"):
         st.markdown("""
         **Aggregators** and **Integrators** have fundamentally different approaches to growth:
 
@@ -59,8 +58,18 @@ def setup_user_input_forms():
     
     industry = st.selectbox("What industry does your company belong to?", industries)
     competitive_landscape = st.selectbox("What best describes your competitive landscape?", ["Dog fight", "Monopoly", "Emerging", "Stable"])
-    company_size = st.selectbox("What is your company size?", ["Big", "Small"])
-
+    with st.expander("🛈 Learn more about competitive landscapes"):
+        st.markdown("""
+        **Understanding your competitive landscape:**
+    
+        - **Dog fight**: Highly competitive market with numerous players fighting for market share.
+        - **Monopoly**: Dominated by a single player, with little to no competition.
+        - **Emerging**: A new, growing market with relatively few competitors.
+        - **Stable**: A mature market with established players and steady growth rates.
+        
+        Select the option that best describes the current state of your market.
+        """)
+    company_size = st.selectbox("What is your company size?", ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"])
     resources_adaptable_to_SGE = st.select_slider("How adaptable are your resources to changes brought by SGE?", options=['Very Inflexible', 'Somewhat Inflexible', 'Neutral', 'Somewhat Adaptable', 'Very Adaptable'])
     revenue_streams_resilient_to_SGE = st.radio("Are your revenue streams resilient to potential changes in organic search due to SGE?", ('Yes', 'Somewhat', 'No'))
     employees_ready_for_AI = st.radio("Is your workforce ready for AI advancements and integration?", ('Yes', 'No'))
@@ -68,7 +77,7 @@ def setup_user_input_forms():
     customer_acquisition_channels_diversified = st.radio("Are your customer acquisition channels diversified beyond organic search?", ('Yes', 'No'))
     content_uniquely_valuable = st.radio("Is your content uniquely valuable and difficult to replicate by AI?", ('Yes', 'No'))
     market_growing_with_SGE = st.radio("Do you see the market growing with the advent of SGE?", ('Yes', 'No'))
-    competition_lagging_in_AI_adaptation = st.radio("Is your competition lagging in adapting to AI and SGE?", ('Yes', 'No'))
+    competition_lagging_in_AI_adaptation = st.radio("Is your competition lagging in adapting to AI?", ('Yes', 'No'))
     socio_political_trends_supportive_of_AI = st.radio("Are socio-political trends supportive of AI integration in your industry?", ('Yes', 'No'))
 
     return {
