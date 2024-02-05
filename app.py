@@ -142,12 +142,17 @@ def perform_detailed_swot_analysis(user_inputs):
         "Threats": []
     }
 
-    categories_to_update = [analyze_seo_channel_impact(user_inputs["customer_acquisition_channel"]),
-                            analyze_digital_advertising_impact(user_inputs["customer_acquisition_channel"]),
-                            evaluate_channel_diversification(user_inputs["customer_acquisition_channel"])]
-
-    for category, message in categories_to_update:
-        swot_categories[category].append(message)
+    # List of functions to call for analysis - ensure each returns a valid tuple
+    analysis_functions = [
+        analyze_seo_channel_impact,
+        analyze_digital_advertising_impact,
+        evaluate_channel_diversification
+    ]
+    
+    for func in analysis_functions:
+        category, message = func(user_inputs["customer_acquisition_channel"])
+        if category and message:  # Simple check to ensure non-empty values
+            swot_categories[category].append(message)
         
     adaptability = user_inputs["resources_adaptable_to_SGE"]
     if adaptability in ["Very Adaptable", "Somewhat Adaptable"]:
