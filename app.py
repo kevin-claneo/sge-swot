@@ -80,6 +80,29 @@ def setup_user_input_forms():
     market_growing_with_SGE = st.radio("Do you see the market growing with the advent of SGE?", ('Yes', 'No'))
     competition_lagging_in_AI_adaptation = st.radio("Is your competition lagging in adapting to AI?", ('Yes', 'No'))
     socio_political_trends_supportive_of_AI = st.radio("Are socio-political trends supportive of AI integration in your industry?", ('Yes', 'No'))
+        technological_infrastructure = st.radio(
+        "Is your technological infrastructure advanced enough to integrate and leverage AI technologies efficiently?",
+        ('Yes', 'No')
+    )
+    innovation_capability = st.select_slider(
+        "How would you rate your company's capability for innovation and adopting new technologies?",
+        options=['Very Low', 'Low', 'Moderate', 'High', 'Very High']
+    )
+    
+    market_trends_awareness = st.radio(
+        "Is your company aware of and actively monitoring market trends related to SGE and AI?",
+        ('Yes', 'No')
+    )
+    
+    customer_behavior_changes = st.radio(
+        "Are you observing significant changes in customer behavior due to advancements in AI and search technologies?",
+        ('Yes', 'No')
+    )
+    
+    external_economic_factors = st.radio(
+        "Do external economic factors (e.g., recession, rapid growth) currently pose a risk or opportunity for your business?",
+        options=['Risk', 'Opportunity', 'Neither']
+    )
 
     return {
         "business_model": business_model,
@@ -95,25 +118,142 @@ def setup_user_input_forms():
         "content_uniquely_valuable": content_uniquely_valuable,
         "market_growing_with_SGE": market_growing_with_SGE,
         "competition_lagging_in_AI_adaptation": competition_lagging_in_AI_adaptation,
-        "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI
+        "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI,
+        "technological_infrastructure": technological_infrastructure,
+        "innovation_capability": innovation_capability,
+        "market_trends_awareness": market_trends_awareness,
+        "customer_behavior_changes": customer_behavior_changes,
+        "external_economic_factors": external_economic_factors,
     }
+def analyze_seo_channel_impact(customer_acquisition_channel):
+    if "SEO" in customer_acquisition_channel:
+        # Strength: Proven expertise in leveraging organic search, which is critical in an SGE-impacted landscape.
+        return ("Strengths", "Expertise in SEO optimizing for SGE changes")
+    else:
+        # Weakness: Missing out on organic search opportunities, particularly critical as search engines evolve with SGE.
+        return ("Weaknesses", "Lack of presence in organic search, a missed opportunity with SGE advancements")
+
+def analyze_digital_advertising_impact(customer_acquisition_channel):
+    if "Online Advertising" in customer_acquisition_channel:
+        # Opportunity: Utilizing AI-driven advertising platforms to dynamically adapt to changing consumer behaviors.
+        return ("Opportunities", "Leveraging AI-driven advertising for dynamic market responsiveness")
+    else:
+        # Threat: Falling behind competitors who are capitalizing on the precision and adaptability of AI-driven ads.
+        return ("Threats", "Risk of being outmaneuvered by competitors using AI-driven advertising strategies")
+
+def evaluate_channel_diversification(customer_acquisition_channel):
+    digital_channels = {"Online Advertising", "Social Media", "Email Marketing", "Content Marketing", "SEO"}
+    selected_digital_channels = set(customer_acquisition_channel) & digital_channels
+
+    if len(selected_digital_channels) >= 3:
+        # Strength: Robust digital presence across multiple platforms, enhancing market reach and resilience.
+        return ("Strengths", f"Diversified digital presence across {len(selected_digital_channels)} platforms")
+    elif len(selected_digital_channels) > 0:
+        # Weakness: Limited diversification may not fully capitalize on digital's potential.
+        return ("Weaknesses", "Limited diversification within digital channels")      
+        
 def perform_detailed_swot_analysis(user_inputs):
-    conditions = {
-        "resources_adaptable_to_SGE": "Very Adaptable" in user_inputs["resources_adaptable_to_SGE"],
-        "revenue_streams_resilient_to_SGE": user_inputs["revenue_streams_resilient_to_SGE"] == "Yes",
-        "employees_ready_for_AI": user_inputs["employees_ready_for_AI"] == "Yes",
-        "brand_recognized_in_SGE": user_inputs["brand_recognized_in_SGE"] == "Yes",
-        "customer_acquisition_channels_diversified": user_inputs["customer_acquisition_channels_diversified"] == "Yes",
-        "content_uniquely_valuable": user_inputs["content_uniquely_valuable"] == "Yes",
-        "market_growing_with_SGE": user_inputs["market_growing_with_SGE"] == "Yes",
-        "competition_lagging_in_AI_adaptation": user_inputs["competition_lagging_in_AI_adaptation"] == "Yes",
-        "socio_political_trends_supportive_of_AI": user_inputs["socio_political_trends_supportive_of_AI"] == "Yes"
+    swot_categories = {
+        "Strengths": [],
+        "Weaknesses": [],
+        "Opportunities": [],
+        "Threats": []
     }
 
-    swot_analysis = advanced_swot_analysis(**conditions)
+    categories_to_update = [analyze_seo_channel_impact(user_inputs["customer_acquisition_channel"]),
+                            analyze_digital_advertising_impact(user_inputs["customer_acquisition_channel"]),
+                            evaluate_channel_diversification(user_inputs["customer_acquisition_channel"])]
+
+    for category, message in categories_to_update:
+        swot_categories[category].append(message)
+        
+    adaptability = user_inputs["resources_adaptable_to_SGE"]
+    if adaptability in ["Very Adaptable", "Somewhat Adaptable"]:
+        swot_categories["Strengths"].append("Adaptable resources to SGE changes")
+    elif adaptability in ["Very Inflexible", "Somewhat Inflexible"]:
+        swot_categories["Weaknesses"].append("Resources poorly adaptable to SGE changes")
+
+    # Employees readiness for AI
+    if user_inputs["employees_ready_for_AI"] == "Yes":
+        swot_categories["Strengths"].append("Workforce ready for AI advancements")
+    else:
+        swot_categories["Weaknesses"].append("Workforce unprepared for AI advancements")
+
+    # Brand recognition in SGE
+    if user_inputs["brand_recognized_in_SGE"] == "Yes":
+        swot_categories["Strengths"].append("Strong brand recognition in SGE")
+    else:
+        swot_categories["Weaknesses"].append("Lack of brand recognition in SGE")
+
+    # Revenue streams resilience
+    if user_inputs["revenue_streams_resilient_to_SGE"] == "Yes":
+        swot_categories["Strengths"].append("Resilient revenue streams to SGE changes")
+    elif user_inputs["revenue_streams_resilient_to_SGE"] == "No":
+        swot_categories["Weaknesses"].append("Vulnerable revenue streams to SGE changes")
+
+    # Market growth with SGE
+    if user_inputs["market_growing_with_SGE"] == "Yes":
+        swot_categories["Opportunities"].append("Growing market with SGE advancements")
+    else:
+        swot_categories["Threats"].append("Stagnating or declining market with SGE advancements")
+
+    # Competition lagging in AI adaptation
+    if user_inputs["competition_lagging_in_AI_adaptation"] == "Yes":
+        swot_categories["Opportunities"].append("Competitive advantage with faster AI adaptation")
+    else:
+        swot_categories["Threats"].append("Competitors may overtake with faster AI adaptation")
+
+    # Socio-political trends supportive of AI
+    if user_inputs["socio_political_trends_supportive_of_AI"] == "Yes":
+        swot_categories["Opportunities"].append("Favorable socio-political environment for AI integration")
+    else:
+        swot_categories["Threats"].append("Regulatory and socio-political challenges to AI integration")
+    if user_inputs["technological_infrastructure"] == "Yes":
+        swot_categories["Strengths"].append("Advanced technological infrastructure for AI integration")
+    else:
+        swot_categories["Weaknesses"].append("Technological infrastructure not ready for efficient AI integration")
     
-    return swot_analysis
+    if user_inputs["innovation_capability"] in ["High", "Very High"]:
+        swot_categories["Strengths"].append("High capability for innovation and adopting new technologies")
+    elif user_inputs["innovation_capability"] in ["Very Low", "Low"]:
+        swot_categories["Weaknesses"].append("Limited capability for innovation and slow adoption of new technologies")
     
+    if user_inputs["market_trends_awareness"] == "Yes":
+        swot_categories["Opportunities"].append("Awareness and active monitoring of market trends related to SGE and AI")
+    else:
+        swot_categories["Threats"].append("Lack of awareness or monitoring of significant market trends")
+    
+    if user_inputs["customer_behavior_changes"] == "Yes":
+        swot_categories["Opportunities"].append("Significant changes in customer behavior favoring AI-driven solutions")
+    elif user_inputs["customer_behavior_changes"] == "No":
+        swot_categories["Threats"].append("Potential oversight of evolving customer expectations and behaviors")
+    if user_inputs["external_economic_factors"] == "Opportunity":
+        swot_categories["Opportunities"].append("Favorable external economic conditions")
+    elif user_inputs["external_economic_factors"] == "Risk":
+        swot_categories["Threats"].append("Adverse external economic conditions")
+
+    return swot_categories
+
+def display_swot_matrix(swot_categories):
+    col1, col2 = st.columns(2)
+    with col1:
+        st.subheader("Strengths")
+        for strength in swot_categories["Strengths"]:
+            st.write(f"- {strength}")
+        
+        st.subheader("Weaknesses")
+        for weakness in swot_categories["Weaknesses"]:
+            st.write(f"- {weakness}")
+
+    with col2:
+        st.subheader("Opportunities")
+        for opportunity in swot_categories["Opportunities"]:
+            st.write(f"- {opportunity}")
+        
+        st.subheader("Threats")
+        for threat in swot_categories["Threats"]:
+            st.write(f"- {threat}")
+
 def main():
     setup_streamlit()  # Your initial setup function
 
