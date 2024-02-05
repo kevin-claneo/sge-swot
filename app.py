@@ -70,6 +70,7 @@ def setup_user_input_forms():
         Select the option that best describes the current state of your market.
         """)
     company_size = st.selectbox("What is your company size?", ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"])
+    customer_acquisition_channel = st.multiselect("What are your customer acquisition channels?", acquisition_channels)
     resources_adaptable_to_SGE = st.select_slider("How adaptable are your resources to changes brought by SGE?", options=['Very Inflexible', 'Somewhat Inflexible', 'Neutral', 'Somewhat Adaptable', 'Very Adaptable'])
     revenue_streams_resilient_to_SGE = st.radio("Are your revenue streams resilient to potential changes in organic search due to SGE?", ('Yes', 'Somewhat', 'No'))
     employees_ready_for_AI = st.radio("Is your workforce ready for AI advancements and integration?", ('Yes', 'No'))
@@ -86,18 +87,17 @@ def setup_user_input_forms():
         "industry": industry,
         "competitive_landscape": competitive_landscape,
         "company_size": company_size,
+        "customer_acquisition_channel": customer_acquisition_channel,
         "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
         "revenue_streams_resilient_to_SGE": revenue_streams_resilient_to_SGE,
         "employees_ready_for_AI": employees_ready_for_AI,
         "brand_recognized_in_SGE": brand_recognized_in_SGE,
-        "customer_acquisition_channels_diversified": customer_acquisition_channels_diversified,
         "content_uniquely_valuable": content_uniquely_valuable,
         "market_growing_with_SGE": market_growing_with_SGE,
         "competition_lagging_in_AI_adaptation": competition_lagging_in_AI_adaptation,
         "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI
     }
 def perform_detailed_swot_analysis(user_inputs):
-    # Mapping user inputs to conditions
     conditions = {
         "resources_adaptable_to_SGE": "Very Adaptable" in user_inputs["resources_adaptable_to_SGE"],
         "revenue_streams_resilient_to_SGE": user_inputs["revenue_streams_resilient_to_SGE"] == "Yes",
@@ -110,8 +110,6 @@ def perform_detailed_swot_analysis(user_inputs):
         "socio_political_trends_supportive_of_AI": user_inputs["socio_political_trends_supportive_of_AI"] == "Yes"
     }
 
-    # Assuming the advanced_swot_analysis function is adjusted to use these conditions
-    # Here you would call the advanced_swot_analysis function and pass the conditions
     swot_analysis = advanced_swot_analysis(**conditions)
     
     return swot_analysis
