@@ -212,9 +212,8 @@ def perform_detailed_swot_analysis(user_inputs):
 
     seo_impact = analyze_seo_channel_impact(user_inputs["customer_acquisition_channel"])
     digital_ad_impact = analyze_digital_advertising_impact(user_inputs["customer_acquisition_channel"])
-    channel_diversification = evaluate_channel_diversification(user_inputs["customer_acquisition_channel"])
-        
-   if user_inputs["resources_adaptable_to_SGE"] > 75:
+    channel_diversification = evaluate_channel_diversification(user_inputs["customer_acquisition_channel"])   
+    if user_inputs["resources_adaptable_to_SGE"] > 75:
         swot_categories["Strengths"].append("High adaptability of resources to SGE changes")
     elif user_inputs["resources_adaptable_to_SGE"] < 25:
         swot_categories["Weaknesses"].append("Low adaptability of resources to SGE changes")
