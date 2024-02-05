@@ -2,20 +2,20 @@ import streamlit as st
 
 def setup_streamlit():
     st.set_page_config(
-    page_title="SEO Strategy and SWOT Analysis - Kevin (Claneo)",
-    page_icon=":rotating_light:",
-    layout="wide",
-    initial_sidebar_state="expanded",
-    menu_items={
-        'Get Help': 'https://www.linkedin.com/in/kirchhoff-kevin/',
-        'About': "This is an app for checking your topical authority! Adapted from Lee Foot's GSC-connector check out his apps: https://leefoot.co.uk"
-    }
+        page_title="SGE SWOT Analysis - Kevin (Claneo)",
+        page_icon=":rotating_light:",
+        layout="wide",
+        initial_sidebar_state="expanded",
+        menu_items={
+            'Get Help': 'https://www.linkedin.com/in/kirchhoff-kevin/',
+            'About': "This is an app, that provides you an analysis basis for SGE"
+        }
     )
     st.image("https://www.claneo.com/wp-content/uploads/Element-4.svg", width=600, use_column_width=None, clamp=False, channels="RGB", output_format="auto")
-    st.caption(":point_right: Join Claneo and support exciting clients as part of the Consulting team") 
+    st.caption(":point_right: Join Claneo and support exciting clients as part of the Consulting team")
     st.caption(':bulb: Make sure to mention that *Kevin* brought this job posting to your attention')
     st.link_button("Learn More", "https://www.claneo.com/en/career/#:~:text=Consulting")
-    st.title("Check the topical authority of a GSC property")
+    st.title("SGE SWOT Analysis")
     st.divider()
 
 
@@ -43,7 +43,26 @@ def setup_user_input_forms():
     st.header("SWOT Analysis Input")
     st.subheader("Please answer the following questions based on your company's current situation:")
 
-    # Example of questions to assess the conditions for the SWOT analysis
+    # Additional inputs for business model, SEO model, etc.
+    business_model = st.selectbox("What is your business model?", ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "Other"])
+    
+    seo_model = st.selectbox("What is your SEO model?", ["Aggregator", "Integrator"])
+    # Info text about SEO model
+    with st.expander("Learn more about SEO models"):
+        st.markdown("""
+        **Aggregators** and **Integrators** have fundamentally different approaches to growth:
+
+        - **Aggregators** channel demand through superior user experience and free distribution. They leverage network effects by consolidating demand (e.g., Google, Amazon).
+        
+        - **Integrators** own the entire value chain (suppliers, production, distribution) and focus on maximizing margins by providing unique value and controlling distribution (e.g., Apple, Peloton).
+        
+        Choose the model that best describes your company's approach.
+        """)
+    
+    industry = st.selectbox("What industry does your company belong to?", industries)
+    competitive_landscape = st.selectbox("What best describes your competitive landscape?", ["Dog fight", "Monopoly", "Emerging", "Stable"])
+    company_size = st.selectbox("What is your company size?", ["Big", "Small"])
+
     resources_adaptable_to_SGE = st.select_slider("How adaptable are your resources to changes brought by SGE?", options=['Very Inflexible', 'Somewhat Inflexible', 'Neutral', 'Somewhat Adaptable', 'Very Adaptable'])
     revenue_streams_resilient_to_SGE = st.radio("Are your revenue streams resilient to potential changes in organic search due to SGE?", ('Yes', 'Somewhat', 'No'))
     employees_ready_for_AI = st.radio("Is your workforce ready for AI advancements and integration?", ('Yes', 'No'))
@@ -55,6 +74,11 @@ def setup_user_input_forms():
     socio_political_trends_supportive_of_AI = st.radio("Are socio-political trends supportive of AI integration in your industry?", ('Yes', 'No'))
 
     return {
+        "business_model": business_model,
+        "seo_model": seo_model,
+        "industry": industry,
+        "competitive_landscape": competitive_landscape,
+        "company_size": company_size,
         "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
         "revenue_streams_resilient_to_SGE": revenue_streams_resilient_to_SGE,
         "employees_ready_for_AI": employees_ready_for_AI,
@@ -65,7 +89,6 @@ def setup_user_input_forms():
         "competition_lagging_in_AI_adaptation": competition_lagging_in_AI_adaptation,
         "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI
     }
-
 def perform_detailed_swot_analysis(user_inputs):
     # Mapping user inputs to conditions
     conditions = {
