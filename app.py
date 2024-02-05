@@ -1,4 +1,4 @@
-pimport streamlit as st
+import streamlit as st
 
 def setup_streamlit():
     st.set_page_config(
