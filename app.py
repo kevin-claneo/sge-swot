@@ -1,4 +1,4 @@
-import streamlit as st
+pimport streamlit as st
 
 def setup_streamlit():
     st.set_page_config(
@@ -55,7 +55,16 @@ def setup_user_input_forms():
     
     competitive_landscape = st.selectbox(
         "What best describes your competitive landscape?", 
-        ["Dog fight", "Monopoly", "Emerging", "Stable"]
+        ["Dog fight", "Monopoly", "Emerging", "Stable"], help="""
+        **Understanding your competitive landscape:**
+    
+        - **Dog fight**: Highly competitive market with numerous players fighting for market share.
+        - **Monopoly**: Dominated by a single player, with little to no competition.
+        - **Emerging**: A new, growing market with relatively few competitors.
+        - **Stable**: A mature market with established players and steady growth rates.
+        
+        Select the option that best describes the current state of your market.
+        """
     )
     
     company_size = st.selectbox(
