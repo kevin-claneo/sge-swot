@@ -203,16 +203,15 @@ def evaluate_channel_diversification(customer_acquisition_channel):
         return ("Weaknesses", "Limited diversification within digital channels")      
         
 def perform_detailed_swot_analysis(user_inputs):
-    swot_categories = {
-        "Strengths": [],
-        "Weaknesses": [],
-        "Opportunities": [],
-        "Threats": []
-    }
+    swot_categories = {"Strengths": [], "Weaknesses": [], "Opportunities": [], "Threats": []}
+    
+    analysis_functions = [analyze_seo_channel_impact, analyze_digital_advertising_impact, evaluate_channel_diversification]
+    for func in analysis_functions:
+        result = func(user_inputs["customer_acquisition_channel"])
+        if result:  # Check if result is not None
+            category, message = result
+            swot_categories[category].append(message)
 
-    seo_impact = analyze_seo_channel_impact(user_inputs["customer_acquisition_channel"])
-    digital_ad_impact = analyze_digital_advertising_impact(user_inputs["customer_acquisition_channel"])
-    channel_diversification = evaluate_channel_diversification(user_inputs["customer_acquisition_channel"])   
     if user_inputs["resources_adaptable_to_SGE"] > 75:
         swot_categories["Strengths"].append("High adaptability of resources to SGE changes")
     elif user_inputs["resources_adaptable_to_SGE"] < 25:
