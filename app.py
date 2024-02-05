@@ -301,10 +301,9 @@ def display_swot_matrix(swot_categories):
 def main():
     setup_streamlit()
     user_inputs = setup_user_input_forms()
-
     if st.button("Perform SWOT Analysis"):
         swot_results = perform_detailed_swot_analysis(user_inputs)
-        display_swot_analysis(swot_results)
+        display_swot_matrix(swot_results)
 
 if __name__ == "__main__":
     main()
