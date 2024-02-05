@@ -80,29 +80,11 @@ def setup_user_input_forms():
     market_growing_with_SGE = st.radio("Do you see the market growing with the advent of SGE?", ('Yes', 'No'))
     competition_lagging_in_AI_adaptation = st.radio("Is your competition lagging in adapting to AI?", ('Yes', 'No'))
     socio_political_trends_supportive_of_AI = st.radio("Are socio-political trends supportive of AI integration in your industry?", ('Yes', 'No'))
-        technological_infrastructure = st.radio(
-        "Is your technological infrastructure advanced enough to integrate and leverage AI technologies efficiently?",
-        ('Yes', 'No')
-    )
-    innovation_capability = st.select_slider(
-        "How would you rate your company's capability for innovation and adopting new technologies?",
-        options=['Very Low', 'Low', 'Moderate', 'High', 'Very High']
-    )
-    
-    market_trends_awareness = st.radio(
-        "Is your company aware of and actively monitoring market trends related to SGE and AI?",
-        ('Yes', 'No')
-    )
-    
-    customer_behavior_changes = st.radio(
-        "Are you observing significant changes in customer behavior due to advancements in AI and search technologies?",
-        ('Yes', 'No')
-    )
-    
-    external_economic_factors = st.radio(
-        "Do external economic factors (e.g., recession, rapid growth) currently pose a risk or opportunity for your business?",
-        options=['Risk', 'Opportunity', 'Neither']
-    )
+    technological_infrastructure = st.radio("Is your technological infrastructure advanced enough to integrate and leverage AI technologies efficiently?",('Yes', 'No'))
+    innovation_capability = st.select_slider("How would you rate your company's capability for innovation and adopting new technologies?", options=['Very Low', 'Low', 'Moderate', 'High', 'Very High'])  
+    market_trends_awareness = st.radio("Is your company aware of and actively monitoring market trends related to SGE and AI?", ('Yes', 'No'))
+    customer_behavior_changes = st.radio("Are you observing significant changes in customer behavior due to advancements in AI and search technologies?", ('Yes', 'No'))
+    external_economic_factors = st.radio("Do external economic factors (e.g., recession, rapid growth) currently pose a risk or opportunity for your business?", options=['Risk', 'Opportunity', 'Neither'])
 
     return {
         "business_model": business_model,
