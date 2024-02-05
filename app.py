@@ -18,7 +18,147 @@ def setup_streamlit():
     st.title("SGE SWOT Analysis")
     st.divider()
 
+def setup_user_input_forms():
+    st.header("SWOT Analysis Input")
+    st.subheader("Please answer the following questions based on your company's current situation:")
+
+    business_model = st.selectbox(
+        "What is your business model?", 
+        ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "B2B-Services"]
+    )
     
+    seo_model = st.selectbox(
+        "What is your SEO model?", 
+        ["Aggregator", "Integrator"]
+    )
+    
+    industry = st.selectbox(
+        "What industry does your company belong to?", 
+        [
+            "Advertising & Marketing", "Aerospace & Defense", "Agriculture", 
+            "Automotive", "Banking & Finance", "Biotechnology", "Chemicals", 
+            "Construction", "Consumer Goods & Services", "Education", "Energy", 
+            "Entertainment & Leisure", "Food & Beverages", "Healthcare", "Hospitality", 
+            "Information Technology", "Insurance", "Manufacturing", "Media", 
+            "Pharmaceuticals", "Real Estate", "Retail", "Telecommunications", 
+            "Transportation & Logistics", "Utilities"
+        ]
+    )
+    
+    competitive_landscape = st.selectbox(
+        "What best describes your competitive landscape?", 
+        ["Dog fight", "Monopoly", "Emerging", "Stable"]
+    )
+    
+    company_size = st.selectbox(
+        "What is your company size?", 
+        ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"]
+    )
+    
+    customer_acquisition_channel = st.multiselect(
+        "What are your customer acquisition channels?", 
+        [
+            "Online Advertising", "Social Media", "Email Marketing", 
+            "Content Marketing", "SEO", "Affiliate Marketing", 
+            "Direct Sales", "Public Relations", "Trade Shows", 
+            "Word of Mouth", "Partnerships"
+        ]
+    )
+    
+    resources_adaptable_to_SGE = st.slider(
+        "Rate the adaptability of your resources to changes brought by SGE", 
+        0, 100, 50, help="0% being not adaptable at all, 100% being fully adaptable"
+    )
+    
+    revenue_streams_resilient_to_SGE = st.slider(
+        "Rate the resilience of your revenue streams to potential changes in organic search due to SGE", 
+        0, 100, 50, help="0% being not resilient at all, 100% being fully resilient"
+    )
+    
+    employees_ready_for_AI = st.slider(
+        "Rate how prepared your workforce is for AI advancements and integration", 
+        0, 100, 50, help="0% being not prepared at all, 100% being fully prepared"
+    )
+    
+    brand_recognized_in_SGE = st.slider(
+        "Rate the recognition of your brand in SGE-driven search results", 
+        0, 100, 50, help="0% being not recognized at all, 100% being highly recognized"
+    )
+    
+    customer_acquisition_channels_diversified = st.slider(
+        "Rate the diversification of your customer acquisition channels beyond organic search", 
+        0, 100, 50, help="0% being not diversified at all, 100% being fully diversified"
+    )
+    
+    content_uniquely_valuable = st.slider(
+        "Rate the uniqueness and value of your content in being difficult to replicate by AI", 
+        0, 100, 50, help="0% being easily replicable, 100% being highly unique and valuable"
+    )
+    
+    market_growing_with_SGE = st.slider(
+        "Rate your perception of the market growth with the advent of SGE", 
+        0, 100, 50, help="0% being shrinking market, 100% being rapidly growing market"
+    )
+    
+    competition_lagging_in_AI_adaptation = st.slider(
+        "Rate how much your competition is lagging in adapting to AI", 
+        0, 100, 50, help="0% being at the same pace or ahead, 100% being significantly behind"
+    )
+    
+    socio_political_trends_supportive_of_AI = st.slider(
+        "Rate the supportiveness of socio-political trends for AI integration in your industry", 
+        0, 100, 50, help="0% being not supportive, 100% being highly supportive"
+    )
+    
+    technological_infrastructure = st.slider(
+        "Rate the advancement of your technological infrastructure for integrating and leveraging AI technologies", 
+        0, 100, 50, help="0% being outdated, 100% being state-of-the-art"
+    )
+    
+    innovation_capability = st.slider(
+        "Rate your company's capability for innovation and adopting new technologies", 
+        0, 100, 50, help="0% being very low capability, 100% being very high capability"
+    )
+    
+    market_trends_awareness = st.slider(
+        "Rate your company's awareness of and active monitoring of market trends related to SGE and AI", 
+        0, 100, 50, help="0% being unaware, 100% being highly aware and actively monitoring"
+    )
+    
+    customer_behavior_changes = st.slider(
+        "Rate the significance of changes in customer behavior due to advancements in AI and search technologies", 
+        0, 100, 50, help="0% being no change, 100% being significant changes observed"
+    )
+    
+    external_economic_factors = st.slider(
+        "Rate the impact of external economic factors on your business (e.g., recession, rapid growth)", 
+        -100, 100, 0, help="-100% being high risk, 100% being high opportunity, 0% being neutral"
+    )
+
+    return {
+        "business_model": business_model,
+        "seo_model": seo_model,
+        "industry": industry,
+        "competitive_landscape": competitive_landscape,
+        "company_size": company_size,
+        "customer_acquisition_channel": customer_acquisition_channel,
+        "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
+        "revenue_streams_resilient_to_SGE": revenue_streams_resilient_to_SGE,
+        "employees_ready_for_AI": employees_ready_for_AI,
+        "brand_recognized_in_SGE": brand_recognized_in_SGE,
+        "customer_acquisition_channels_diversified": customer_acquisition_channels_diversified,
+        "content_uniquely_valuable": content_uniquely_valuable,
+        "market_growing_with_SGE": market_growing_with_SGE,
+        "competition_lagging_in_AI_adaptation": competition_lagging_in_AI_adaptation,
+        "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI,
+        "technological_infrastructure": technological_infrastructure,
+        "innovation_capability": innovation_capability,
+        "market_trends_awareness": market_trends_awareness,
+        "customer_behavior_changes": customer_behavior_changes,
+        "external_economic_factors": external_economic_factors,
+    }
+
+'''
 def setup_user_input_forms():
     # List of common industries
     industries = [
@@ -107,6 +247,7 @@ def setup_user_input_forms():
         "customer_behavior_changes": customer_behavior_changes,
         "external_economic_factors": external_economic_factors,
     }
+'''
 def analyze_seo_channel_impact(customer_acquisition_channel):
     if "SEO" in customer_acquisition_channel:
         # Strength: Proven expertise in leveraging organic search, which is critical in an SGE-impacted landscape.
