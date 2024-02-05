@@ -18,8 +18,8 @@ def setup_streamlit():
     st.title("SGE SWOT Analysis")
     st.divider()
 
-
-
+    
+def setup_user_input_forms():
     # List of common industries
     industries = [
         "Advertising & Marketing", "Aerospace & Defense", "Agriculture", 
@@ -38,8 +38,6 @@ def setup_streamlit():
         "Direct Sales", "Public Relations", "Trade Shows", 
         "Word of Mouth", "Partnerships"
     ]
-    
-def setup_user_input_forms():
     st.header("SWOT Analysis Input")
     st.subheader("Please answer the following questions based on your company's current situation:")
 
@@ -48,7 +46,7 @@ def setup_user_input_forms():
     
     seo_model = st.selectbox("What is your SEO model?", ["Aggregator", "Integrator"])
     # Info text about SEO model
-    with st.expander("Learn more about SEO models"):
+    with st.expander(":information_source: Learn more about SEO models"):
         st.markdown("""
         **Aggregators** and **Integrators** have fundamentally different approaches to growth:
 
