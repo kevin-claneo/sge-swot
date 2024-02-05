@@ -29,7 +29,15 @@ def setup_user_input_forms():
     
     seo_model = st.selectbox(
         "What is your SEO model?", 
-        ["Aggregator", "Integrator"]
+        ["Aggregator", "Integrator"], help="""
+        **Aggregators** and **Integrators** have fundamentally different approaches to growth:
+
+        - **Aggregators** channel demand through superior user experience and free distribution. They leverage network effects by consolidating demand (e.g., Google, Amazon).
+        
+        - **Integrators** own the entire value chain (suppliers, production, distribution) and focus on maximizing margins by providing unique value and controlling distribution (e.g., Apple, Peloton).
+        
+        Choose the model that best describes your company's approach.
+        """
     )
     
     industry = st.selectbox(
