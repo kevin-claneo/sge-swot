@@ -4,7 +4,6 @@ def setup_streamlit():
     st.set_page_config(
         page_title="SGE SWOT Analysis - Kevin (Claneo)",
         page_icon=":rotating_light:",
-        layout="wide",
         initial_sidebar_state="expanded",
         menu_items={
             'Get Help': 'https://www.linkedin.com/in/kirchhoff-kevin/',
