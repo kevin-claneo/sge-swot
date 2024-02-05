@@ -299,17 +299,12 @@ def display_swot_matrix(swot_categories):
             st.write(f"- {threat}")
 
 def main():
-    setup_streamlit()  # Your initial setup function
-
+    setup_streamlit()
     user_inputs = setup_user_input_forms()
 
     if st.button("Perform SWOT Analysis"):
         swot_results = perform_detailed_swot_analysis(user_inputs)
-        st.subheader("SWOT Analysis Results")
-        for category, factors in swot_results.items():
-            st.markdown(f"**{category}:**")
-            for factor in factors:
-                st.write(f"- {factor}")
+        display_swot_analysis(swot_results)
 
 if __name__ == "__main__":
     main()
