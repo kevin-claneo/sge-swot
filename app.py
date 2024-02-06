@@ -173,6 +173,35 @@ def general_evaluations(user_inputs, swot_categories):
         swot_categories["Threats"].append(
             f"A {competitive_landscape.lower()} competitive landscape increases the urgency for innovation and adaptability in response to SGE advancements."
         )
+    # Adaptability of resources to SGE and AI technologies
+    if user_inputs["resources_adaptable_to_SGE"] > 75:
+        swot_categories["Strengths"].append("High adaptability of resources to generative AI changes positions the company favorably for future technological shifts.")
+    elif user_inputs["resources_adaptable_to_SGE"] < 25:
+        swot_categories["Weaknesses"].append("Low adaptability of resources to generative AI changes may hinder the company's ability to respond to technological advancements.")
+
+    # Workforce preparedness for AI
+    if user_inputs["employees_ready_for_AI"] > 75:
+        swot_categories["Strengths"].append("A workforce well-prepared for AI advancements enhances the company's innovative capacity and readiness for future challenges.")
+    elif user_inputs["employees_ready_for_AI"] < 25:
+        swot_categories["Weaknesses"].append("A workforce poorly prepared for AI advancements may slow down the company's adaptation to technological changes.")
+
+    # Brand recognition evaluation
+    if user_inputs["brand_recognition"] > 75:
+        swot_categories["Strengths"].append("Strong brand recognition in search engines could lead to better visibility and authority in generative AI-driven search results.")
+    elif user_inputs["brand_recognition"] < 25:
+        swot_categories["Weaknesses"].append("Low brand recognition in search engines may limit visibility in generative AI-driven search enhancements.")
+
+    # Market trends awareness
+    if user_inputs["market_trends_awareness"] > 75:
+        swot_categories["Strengths"].append("High awareness of market trends related to generative AI and search technologies enables proactive strategic planning.")
+    else:
+        swot_categories["Threats"].append("Lack of awareness or active monitoring of generative AI and search technology trends could lead to missed opportunities and strategic misalignments.")
+
+    # External economic factors
+    if user_inputs["external_economic_factors"] > 0:
+        swot_categories["Opportunities"].append("Positive external economic conditions could provide growth opportunities and financial stability.")
+    elif user_inputs["external_economic_factors"] < 0:
+        swot_categories["Threats"].append("Adverse external economic conditions may pose financial and operational risks.")
 
 def display_swot_matrix(swot_categories):
     col1, col2 = st.columns(2)
