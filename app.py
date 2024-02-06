@@ -180,6 +180,126 @@ def perform_detailed_swot_analysis(user_inputs):
     else:
         swot_categories["Strengths"].append("Diverse business model reduces reliance on single market trends")
 
+    # Evaluate SEO model impact
+    if user_inputs["seo_model"] == "Aggregator":
+        swot_categories["Weaknesses"].append("Aggregator model may face challenges with content uniqueness in SGE")
+    elif user_inputs["seo_model"] == "Integrator":
+        swot_categories["Strengths"].append("Integrator model's control over value chain could offer competitive edge")
+
+    # Industry-specific SWOT adjustments
+        industry_impacts = {
+        "Advertising & Marketing": {
+            "Opportunities": ["Leveraging SGE for targeted advertising and personalized marketing campaigns"],
+            "Threats": ["Increased ad complexity and competition"]
+        },
+        "Aerospace & Defense": {
+            "Strengths": ["Advanced technological infrastructure can leverage AI for innovation"],
+            "Threats": ["Security risks associated with AI-driven systems"]
+        },
+        "Agriculture": {
+            "Opportunities": ["Use of AI for predictive analytics in crop management"],
+            "Threats": ["Dependence on AI for critical decisions without understanding AI limitations"]
+        },
+        "Automotive": {
+            "Strengths": ["Integration of AI in vehicles for enhanced user experience"],
+            "Weaknesses": ["Challenges in adopting AI at scale due to regulatory and safety concerns"]
+        },
+        "Banking & Finance": {
+            "Strengths": ["High-value proprietary financial data"],
+            "Threats": ["Risk of financial misinformation through AI hallucinations"]
+        },
+        "Biotechnology": {
+            "Opportunities": ["AI-driven research and development"],
+            "Threats": ["Ethical and safety concerns with AI in biotech"]
+        },
+        "Chemicals": {
+            "Opportunities": ["AI for optimizing chemical manufacturing processes"],
+            "Threats": ["Intellectual property risks with AI-driven discoveries"]
+        },
+        "Construction": {
+            "Strengths": ["AI for project management and efficiency"],
+            "Weaknesses": ["Adaptability to AI-driven design and planning tools"]
+        },
+        "Consumer Goods & Services": {
+            "Opportunities": ["Enhanced customer service through AI"],
+            "Threats": ["Commoditization of consumer goods through AI-driven marketplaces"]
+        },
+        "Education": {
+            "Opportunities": ["Personalized learning experiences through AI"],
+            "Threats": ["AI content generation overshadowing critical thinking and learning processes"]
+        },
+        "Energy": {
+            "Opportunities": ["AI for efficient energy management and distribution"],
+            "Threats": ["Cybersecurity risks in critical energy infrastructure"]
+        },
+        "Entertainment & Leisure": {
+            "Strengths": ["Engaging content creation using AI"],
+            "Weaknesses": ["Loss of creative jobs to AI"]
+        },
+        "Food & Beverages": {
+            "Opportunities": ["AI in supply chain optimization"],
+            "Threats": ["Challenges in maintaining food safety standards with AI-driven processes"]
+        },
+        "Healthcare": {
+            "Strengths": ["Proprietary data as a competitive advantage"],
+            "Threats": ["Misrepresentation of health information through AI hallucinations"]
+        },
+        "Hospitality": {
+            "Opportunities": ["AI-driven customer service enhancements"],
+            "Threats": ["Depersonalization of guest experiences"]
+        },
+        "Information Technology": {
+            "Strengths": ["Frontier of AI advancements"],
+            "Weaknesses": ["Rapid pace of technological change requires continuous adaptation"]
+        },
+        "Insurance": {
+            "Opportunities": ["AI for personalized insurance products"],
+            "Threats": ["Data privacy concerns with AI-driven risk assessments"]
+        },
+        "Manufacturing": {
+            "Strengths": ["Efficiency gains through AI in manufacturing processes"],
+            "Weaknesses": ["High costs of integrating AI into existing systems"]
+        },
+        "Media": {
+            "Opportunities": ["Content customization and recommendation through AI"],
+            "Threats": ["AI-driven content creation challenging traditional media's value"]
+        },
+        "Pharmaceuticals": {
+            "Opportunities": ["Accelerated drug discovery through AI"],
+            "Threats": ["Regulatory challenges in validating AI-driven research"]
+        },
+        "Real Estate": {
+            "Opportunities": ["AI for market analysis and investment insights"],
+            "Threats": ["Dependence on AI algorithms for pricing and valuation"]
+        },
+        "Retail": {
+            "Opportunities": ["Enhanced online shopping experiences", "Integration with voice search and AI-driven assistants"],
+            "Threats": ["Increased competition from better-optimized SGE content"]
+        },
+        "Telecommunications": {
+            "Strengths": ["Use of AI for network optimization and customer service"],
+            "Weaknesses": ["Adapting to AI-driven changes in consumer communication habits"]
+        },
+        "Transportation & Logistics": {
+            "Opportunities": ["AI for route optimization and logistics management"],
+            "Threats": ["Automation displacing jobs in transportation"]
+        },
+        "Utilities": {
+            "Strengths": ["AI for grid management and predictive maintenance"],
+            "Weaknesses": ["Investment and adaptation to AI technologies"]
+        }
+    }
+    
+    # Incorporate industry-specific impacts into SWOT
+    industry_specifics = industry_impacts.get(user_inputs["industry"], {})
+    for category, impacts in industry_specifics.items():
+        swot_categories[category].extend(impacts)
+        
+    if user_inputs["business_model"] in ["E-commerce", "SaaS"]:
+        swot_categories["Opportunities"].append("Digital-first business model well-positioned for online growth")
+    else:
+        swot_categories["Strengths"].append("Diverse business model reduces reliance on single market trends")
+
     if user_inputs["resources_adaptable_to_SGE"] > 75:
         swot_categories["Strengths"].append("High adaptability of resources to SGE changes")
     elif user_inputs["resources_adaptable_to_SGE"] < 25:
@@ -218,10 +338,6 @@ def perform_detailed_swot_analysis(user_inputs):
         swot_categories["Strengths"].append("Highly unique and valuable content difficult to replicate by AI")
     elif user_inputs["content_uniquely_valuable"] < 25:
         swot_categories["Weaknesses"].append("Content easily replicable by AI, lacking uniqueness")
-
-    # Additional factors integration
-    # Technological infrastructure, innovation capability, market trends awareness, etc.
-    # Similar logic applies to these as shown above
 
     # Market growing with SGE
     if user_inputs["market_growing_with_SGE"] > 75:
