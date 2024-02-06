@@ -47,13 +47,13 @@ def setup_user_input_forms():
         """
     )
     company_size = st.selectbox("What is your company size?", ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"])
-    reliance_on_SEO = st.slider("What percentage of your customer acquisition relies on SEO?", 0, 100, 25)
-    resources_adaptable_to_SGE = st.slider("Rate the adaptability of your resources to changes brought by generative AI technologies", 0, 100, 50)
-    employees_ready_for_AI = st.slider("Rate how prepared your workforce is for AI advancements and integration", 0, 100, 50)
-    brand_recognition = st.slider("Rate your brand recognition in search engines", 0, 100, 50)
-    content_uniquely_valuable = st.slider("Rate the uniqueness and value of your content in being difficult to replicate by AI", 0, 100, 50)
-    market_trends_awareness = st.slider("Rate your company's awareness of and active monitoring of market trends related to generative AI and search technologies", 0, 100, 50)
-    external_economic_factors = st.slider("Rate the impact of external economic factors on your business", -100, 100, 0)
+    reliance_on_SEO = st.slider("What percentage of your customer acquisition relies on SEO?", 0, 100, 25, help="0% being no reliance at all, 100% being fully reliant on SEO")
+    resources_adaptable_to_SGE = st.slider("Rate the adaptability of your resources to changes brought by generative AI technologies", 0, 100, 50, help="0% being not adaptable at all, 100% being fully adaptable")
+    employees_ready_for_AI = st.slider("Rate how prepared your workforce is for AI advancements and integration", 0, 100, 50, help="0% being not prepared at all, 100% being fully prepared")
+    brand_recognition = st.slider("Rate your brand recognition in search engines", 0, 100, 50, help="0% being not recognized at all, 100% being highly recognized")
+    content_uniquely_valuable = st.slider("Rate the uniqueness and value of your content in being difficult to replicate by AI", 0, 100, 50, help="0% being easily replicable, 100% being highly unique and valuable")
+    market_trends_awareness = st.slider("Rate your company's awareness of and active monitoring of market trends related to generative AI and search technologies", 0, 100, 50, help="0% being unaware, 100% being highly aware and actively monitoring")
+    external_economic_factors = st.slider("Rate the impact of external economic factors on your business", -100, 100, 0, help="-100% being high risk, 100% being high opportunity, 0% being neutral")
 
     return {
         "business_model": business_model,
