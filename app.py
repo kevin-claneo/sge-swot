@@ -23,7 +23,7 @@ def setup_user_input_forms():
 
     business_model = st.selectbox(
         "What is your business model?", 
-        ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "B2B-Services"]
+        ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "Retail", "B2B-Services"]
     )
     
     seo_model = st.selectbox(
@@ -37,19 +37,6 @@ def setup_user_input_forms():
         
         Choose the model that best describes your company's approach.
         """
-    )
-    
-    industry = st.selectbox(
-        "What industry does your company belong to?", 
-        [
-            "Advertising & Marketing", "Aerospace & Defense", "Agriculture", 
-            "Automotive", "Banking & Finance", "Biotechnology", "Chemicals", 
-            "Construction", "Consumer Goods & Services", "Education", "Energy", 
-            "Entertainment & Leisure", "Food & Beverages", "Healthcare", "Hospitality", 
-            "Information Technology", "Insurance", "Manufacturing", "Media", 
-            "Pharmaceuticals", "Real Estate", "Retail", "Telecommunications", 
-            "Transportation & Logistics", "Utilities"
-        ]
     )
     
     competitive_landscape = st.selectbox(
@@ -81,10 +68,6 @@ def setup_user_input_forms():
         0, 100, 50, help="0% being not adaptable at all, 100% being fully adaptable"
     )
     
-    revenue_streams_resilient_to_SGE = st.slider(
-        "Rate the resilience of your revenue streams to potential changes in organic search due to SGE", 
-        0, 100, 50, help="0% being not resilient at all, 100% being fully resilient"
-    )
     
     employees_ready_for_AI = st.slider(
         "Rate how prepared your workforce is for AI advancements and integration", 
@@ -154,7 +137,6 @@ def setup_user_input_forms():
         "company_size": company_size,
         "reliance_on_SEO": reliance_on_SEO,
         "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
-        "revenue_streams_resilient_to_SGE": revenue_streams_resilient_to_SGE,
         "employees_ready_for_AI": employees_ready_for_AI,
         "brand_recognized_in_SGE": brand_recognized_in_SGE,
         "customer_acquisition_channels_diversified": customer_acquisition_channels_diversified,
@@ -171,199 +153,113 @@ def setup_user_input_forms():
 
 
 
-        
-def perform_detailed_swot_analysis(user_inputs):
+ def perform_detailed_swot_analysis(user_inputs):       
     swot_categories = {"Strengths": [], "Weaknesses": [], "Opportunities": [], "Threats": []}
+
+    # Business Model Evaluation with focus on SGE
+    if user_inputs["business_model"] == "E-commerce":
+        if user_inputs["seo_model"] == "Integrator":
+            swot_categories["Opportunities"].append(
+                "SGE enhances product discoverability and detailed comparisons, favoring e-commerce sites with rich, structured data."
+            )
+        elif user_inputs["seo_model"] == "Aggregator":
+            swot_categories["Threats"].append(
+                "Aggregators may face competition from direct brands in SGE, which could prioritize original content and direct data sources."
+            )
+
+    elif user_inputs["business_model"] == "SaaS":
+        swot_categories["Opportunities"].append(
+            "SGE offers a platform for SaaS companies to highlight unique software solutions through conversational search queries."
+        )
+
+    elif user_inputs["business_model"] == "Local business":
+        if user_inputs["company_size"] in ["Large", "Enterprise"]:
+            swot_categories["Opportunities"].append(
+                "Large local businesses or chains might leverage SGE for better visibility in local and conversational search results."
+            )
+        else:
+            swot_categories["Weaknesses"].append(
+                "Smaller local businesses need to ensure high-quality, unique content to compete in SGE-driven local searches."
+            )
+
+    elif user_inputs["business_model"] == "Publisher":
+        if user_inputs["content_uniquely_valuable"] > 90:
+            swot_categories["Opportunities"].append(
+                "Publishers with high-quality, unique content can leverage SGE for authoritative answers, driving user engagement."
+            )
+        else:
+            swot_categories["Threats"].append(
+                "SGE poses a risk of reducing traffic to publishers if their content does not stand out or directly answer user queries."
+            )
+
+    elif user_inputs["business_model"] == "Affiliate":
+        if user_inputs["content_uniquely_valuable"] > 90:
+            swot_categories["Opportunities"].append(
+                "Unique and authoritative content may capture SGE attention, maintaining affiliate traffic."
+            )
+        else:
+            swot_categories["Threats"].append(
+                "Affiliates face significant threats from SGE if it directly answers queries, potentially bypassing referral links."
+            )
+    elif user_inputs["business_model"] == "B2B-Services":
+        if user_inputs["content_uniquely_valuable"] > 75:
+            swot_categories["Opportunities"].append(
+                "Unique B2B content can leverage SGE to highlight niche expertise and drive targeted leads."
+            )
+        else:
+            swot_categories["Threats"].append(
+                "Lack of distinctive content may limit visibility in SGE, impacting lead generation."
+            )
+
+    elif user_inputs["business_model"] == "Consumer":
+        swot_categories["Opportunities"].append(
+            "Consumer brands can utilize SGE to enhance user engagement and personalize experiences."
+        )
     
-    if user_inputs["business_model"] in ["E-commerce", "SaaS"]:
-        swot_categories["Opportunities"].append("Digital-first business model well-positioned for online growth")
-    else:
-        swot_categories["Strengths"].append("Diverse business model reduces reliance on single market trends")
+    # General evaluations
+    general_evaluations(user_inputs, swot_categories)
 
-    # Evaluate SEO model impact
-    if user_inputs["seo_model"] == "Aggregator":
-        swot_categories["Weaknesses"].append("Aggregator model may face challenges with content uniqueness in SGE")
-    elif user_inputs["seo_model"] == "Integrator":
-        swot_categories["Strengths"].append("Integrator model's control over value chain could offer competitive edge")
+    # Industry-specific adjustments
+    adjust_for_industry(user_inputs, swot_categories)
 
-    # Industry-specific SWOT adjustments
-        industry_impacts = {
-        "Advertising & Marketing": {
-            "Opportunities": ["Leveraging SGE for targeted advertising and personalized marketing campaigns"],
-            "Threats": ["Increased ad complexity and competition"]
-        },
-        "Aerospace & Defense": {
-            "Strengths": ["Advanced technological infrastructure can leverage AI for innovation"],
-            "Threats": ["Security risks associated with AI-driven systems"]
-        },
-        "Agriculture": {
-            "Opportunities": ["Use of AI for predictive analytics in crop management"],
-            "Threats": ["Dependence on AI for critical decisions without understanding AI limitations"]
-        },
-        "Automotive": {
-            "Strengths": ["Integration of AI in vehicles for enhanced user experience"],
-            "Weaknesses": ["Challenges in adopting AI at scale due to regulatory and safety concerns"]
-        },
-        "Banking & Finance": {
-            "Strengths": ["High-value proprietary financial data"],
-            "Threats": ["Risk of financial misinformation through AI hallucinations"]
-        },
-        "Biotechnology": {
-            "Opportunities": ["AI-driven research and development"],
-            "Threats": ["Ethical and safety concerns with AI in biotech"]
-        },
-        "Chemicals": {
-            "Opportunities": ["AI for optimizing chemical manufacturing processes"],
-            "Threats": ["Intellectual property risks with AI-driven discoveries"]
-        },
-        "Construction": {
-            "Strengths": ["AI for project management and efficiency"],
-            "Weaknesses": ["Adaptability to AI-driven design and planning tools"]
-        },
-        "Consumer Goods & Services": {
-            "Opportunities": ["Enhanced customer service through AI"],
-            "Threats": ["Commoditization of consumer goods through AI-driven marketplaces"]
-        },
-        "Education": {
-            "Opportunities": ["Personalized learning experiences through AI"],
-            "Threats": ["AI content generation overshadowing critical thinking and learning processes"]
-        },
-        "Energy": {
-            "Opportunities": ["AI for efficient energy management and distribution"],
-            "Threats": ["Cybersecurity risks in critical energy infrastructure"]
-        },
-        "Entertainment & Leisure": {
-            "Strengths": ["Engaging content creation using AI"],
-            "Weaknesses": ["Loss of creative jobs to AI"]
-        },
-        "Food & Beverages": {
-            "Opportunities": ["AI in supply chain optimization"],
-            "Threats": ["Challenges in maintaining food safety standards with AI-driven processes"]
-        },
-        "Healthcare": {
-            "Strengths": ["Proprietary data as a competitive advantage"],
-            "Threats": ["Misrepresentation of health information through AI hallucinations"]
-        },
-        "Hospitality": {
-            "Opportunities": ["AI-driven customer service enhancements"],
-            "Threats": ["Depersonalization of guest experiences"]
-        },
-        "Information Technology": {
-            "Strengths": ["Frontier of AI advancements"],
-            "Weaknesses": ["Rapid pace of technological change requires continuous adaptation"]
-        },
-        "Insurance": {
-            "Opportunities": ["AI for personalized insurance products"],
-            "Threats": ["Data privacy concerns with AI-driven risk assessments"]
-        },
-        "Manufacturing": {
-            "Strengths": ["Efficiency gains through AI in manufacturing processes"],
-            "Weaknesses": ["High costs of integrating AI into existing systems"]
-        },
-        "Media": {
-            "Opportunities": ["Content customization and recommendation through AI"],
-            "Threats": ["AI-driven content creation challenging traditional media's value"]
-        },
-        "Pharmaceuticals": {
-            "Opportunities": ["Accelerated drug discovery through AI"],
-            "Threats": ["Regulatory challenges in validating AI-driven research"]
-        },
-        "Real Estate": {
-            "Opportunities": ["AI for market analysis and investment insights"],
-            "Threats": ["Dependence on AI algorithms for pricing and valuation"]
-        },
-        "Retail": {
-            "Opportunities": ["Enhanced online shopping experiences", "Integration with voice search and AI-driven assistants"],
-            "Threats": ["Increased competition from better-optimized SGE content"]
-        },
-        "Telecommunications": {
-            "Strengths": ["Use of AI for network optimization and customer service"],
-            "Weaknesses": ["Adapting to AI-driven changes in consumer communication habits"]
-        },
-        "Transportation & Logistics": {
-            "Opportunities": ["AI for route optimization and logistics management"],
-            "Threats": ["Automation displacing jobs in transportation"]
-        },
-        "Utilities": {
-            "Strengths": ["AI for grid management and predictive maintenance"],
-            "Weaknesses": ["Investment and adaptation to AI technologies"]
-        }
-    }
-    
-    # Incorporate industry-specific impacts into SWOT
-    industry_specifics = industry_impacts.get(user_inputs["industry"], {})
-    for category, impacts in industry_specifics.items():
-        swot_categories[category].extend(impacts)
-        
-    if user_inputs["business_model"] in ["E-commerce", "SaaS"]:
-        swot_categories["Opportunities"].append("Digital-first business model well-positioned for online growth")
-    else:
-        swot_categories["Strengths"].append("Diverse business model reduces reliance on single market trends")
+return swot_categories
 
-    if user_inputs["resources_adaptable_to_SGE"] > 75:
-        swot_categories["Strengths"].append("High adaptability of resources to SGE changes")
-    elif user_inputs["resources_adaptable_to_SGE"] < 25:
-        swot_categories["Weaknesses"].append("Low adaptability of resources to SGE changes")
-        
+def general_evaluations(user_inputs, swot_categories):
+    # Evaluates SEO reliance, content value, competitive landscape, and other general factors
+
+    # Reliance on SEO evaluation
     if user_inputs["reliance_on_SEO"] > 50:
-        swot_categories["Weaknesses"].append("High reliance on SEO poses risk with algorithm changes")
+        swot_categories["Threats"].append(
+            "High reliance on SEO may lead to vulnerabilities as SGE changes search dynamics."
+        )
     else:
-        swot_categories["Strengths"].append("Balanced customer acquisition strategy beyond SEO")
-        
-    if user_inputs["revenue_streams_resilient_to_SGE"] > 75:
-        swot_categories["Strengths"].append("Resilient revenue streams to SGE changes")
-    elif user_inputs["revenue_streams_resilient_to_SGE"] < 25:
-        swot_categories["Weaknesses"].append("Vulnerable revenue streams to SGE changes")
+        swot_categories["Strengths"].append(
+            "Low reliance on SEO indicates diversified acquisition channels, offering resilience against SGE changes."
+        )
 
-    # Employees ready for AI
-    if user_inputs["employees_ready_for_AI"] > 75:
-        swot_categories["Strengths"].append("Workforce well-prepared for AI advancements")
-    elif user_inputs["employees_ready_for_AI"] < 25:
-        swot_categories["Weaknesses"].append("Workforce poorly prepared for AI advancements")
-
-    # Brand recognized in SGE
-    if user_inputs["brand_recognized_in_SGE"] > 75:
-        swot_categories["Strengths"].append("Strong brand recognition in SGE-driven search results")
-    elif user_inputs["brand_recognized_in_SGE"] < 25:
-        swot_categories["Weaknesses"].append("Low brand recognition in SGE-driven search results")
-
-    # Customer acquisition channels diversified
-    if user_inputs["customer_acquisition_channels_diversified"] > 75:
-        swot_categories["Strengths"].append("Well-diversified customer acquisition channels")
-    elif user_inputs["customer_acquisition_channels_diversified"] < 25:
-        swot_categories["Weaknesses"].append("Poorly diversified customer acquisition channels")
-
-    # Content uniquely valuable
+    # Content uniqueness evaluation
     if user_inputs["content_uniquely_valuable"] > 75:
-        swot_categories["Strengths"].append("Highly unique and valuable content difficult to replicate by AI")
-    elif user_inputs["content_uniquely_valuable"] < 25:
-        swot_categories["Weaknesses"].append("Content easily replicable by AI, lacking uniqueness")
+        swot_categories["Strengths"].append(
+            "High-quality, unique content positions the company well for visibility in SGE's nuanced search results."
+        )
+    else:
+        swot_categories["Weaknesses"].append(
+            "Generic content risks being overshadowed in SGE, emphasizing the need for distinctiveness."
+        )
 
-    # Market growing with SGE
-    if user_inputs["market_growing_with_SGE"] > 75:
-        swot_categories["Opportunities"].append("Growing market with the advent of SGE")
-    elif user_inputs["market_growing_with_SGE"] < 25:
-        swot_categories["Threats"].append("Market challenges with the advent of SGE")
-
-    # Competition lagging in AI adaptation
-    if user_inputs["competition_lagging_in_AI_adaptation"] > 75:
-        swot_categories["Opportunities"].append("Competitive advantage with faster AI adaptation")
-    elif user_inputs["competition_lagging_in_AI_adaptation"] < 25:
-        swot_categories["Threats"].append("Risk of falling behind in AI adaptation")
-
-    # Socio-political trends supportive of AI
-    if user_inputs["socio_political_trends_supportive_of_AI"] > 75:
-        swot_categories["Opportunities"].append("Favorable socio-political environment for AI integration")
-    elif user_inputs["socio_political_trends_supportive_of_AI"] < 25:
-        swot_categories["Threats"].append("Challenges from socio-political environment for AI integration")
-
-    # External economic factors
-    if user_inputs["external_economic_factors"] > 0:
-        swot_categories["Opportunities"].append("Positive impact from external economic conditions")
-    elif user_inputs["external_economic_factors"] < 0:
-        swot_categories["Threats"].append("Negative impact from external economic conditions")
-
-    return swot_categories
+    # Competitive landscape evaluation
+    competitive_landscape = user_inputs["competitive_landscape"]
+    if competitive_landscape == "Monopoly" or competitive_landscape == "Stable":
+        swot_categories["Strengths"].append(
+            f"A {competitive_landscape.lower()} market position offers a strong foundation for leveraging SGE to solidify market dominance."
+        )
+    elif competitive_landscape == "Dog fight" or competitive_landscape == "Emerging":
+        swot_categories["Opportunities"].append(
+            f"In a {competitive_landscape.lower()} market, SGE presents opportunities for market differentiation and capturing new segments."
+        )
+        swot_categories["Threats"].append(
+            f"A {competitive_landscape.lower()} competitive landscape increases the urgency for innovation and adaptability in response to SGE advancements."
+        )
 
 def display_swot_matrix(swot_categories):
     col1, col2 = st.columns(2)
