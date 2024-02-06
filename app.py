@@ -47,7 +47,7 @@ def setup_user_input_forms():
         """
     )
     company_size = st.selectbox("What is your company size?", ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"])
-    reliance_on_SEO = st.slider("What percentage of your customer acquisition relies on SEO?", 0, 100, 25, help="0% being no reliance at all, 100% being fully reliant on SEO")
+    reliance_on_SEO = st.slider("What percentage of your customer acquisition relies on SEO?", 0, 100, 50, help="0% being no reliance at all, 100% being fully reliant on SEO")
     resources_adaptable_to_SGE = st.slider("Rate the adaptability of your resources to changes brought by generative AI technologies", 0, 100, 50, help="0% being not adaptable at all, 100% being fully adaptable")
     employees_ready_for_AI = st.slider("Rate how prepared your workforce is for AI advancements and integration", 0, 100, 50, help="0% being not prepared at all, 100% being fully prepared")
     brand_recognition = st.slider("Rate your brand recognition in search engines", 0, 100, 50, help="0% being not recognized at all, 100% being highly recognized")
