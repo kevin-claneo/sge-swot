@@ -186,10 +186,10 @@ def perform_detailed_swot_analysis(user_inputs):
         swot_categories["Weaknesses"].append("Low adaptability of resources to SGE changes")
         
     if user_inputs["reliance_on_SEO"] > 50:
-            swot_categories["Weaknesses"].append("High reliance on SEO poses risk with algorithm changes")
-        else:
-            swot_categories["Strengths"].append("Balanced customer acquisition strategy beyond SEO")
-    # Revenue streams resilient to SGE
+        swot_categories["Weaknesses"].append("High reliance on SEO poses risk with algorithm changes")
+    else:
+        swot_categories["Strengths"].append("Balanced customer acquisition strategy beyond SEO")
+        
     if user_inputs["revenue_streams_resilient_to_SGE"] > 75:
         swot_categories["Strengths"].append("Resilient revenue streams to SGE changes")
     elif user_inputs["revenue_streams_resilient_to_SGE"] < 25:
