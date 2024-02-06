@@ -70,15 +70,10 @@ def setup_user_input_forms():
         "What is your company size?", 
         ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"]
     )
-    
-    customer_acquisition_channel = st.multiselect(
-        "What are your customer acquisition channels?", 
-        [
-            "Online Advertising", "Social Media", "Email Marketing", 
-            "Content Marketing", "SEO", "Affiliate Marketing", 
-            "Direct Sales", "Public Relations", "Trade Shows", 
-            "Word of Mouth", "Partnerships"
-        ]
+     
+    reliance_on_SEO = st.slider(
+        "What percentage of your customer acquisition relies on SEO?",
+        0, 100, 25, help="0% being no reliance at all, 100% being fully reliant on SEO"
     )
     
     resources_adaptable_to_SGE = st.slider(
@@ -157,7 +152,7 @@ def setup_user_input_forms():
         "industry": industry,
         "competitive_landscape": competitive_landscape,
         "company_size": company_size,
-        "customer_acquisition_channel": customer_acquisition_channel,
+        "reliance_on_SEO": reliance_on_SEO,
         "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
         "revenue_streams_resilient_to_SGE": revenue_streams_resilient_to_SGE,
         "employees_ready_for_AI": employees_ready_for_AI,
@@ -175,48 +170,25 @@ def setup_user_input_forms():
     }
 
 
-def analyze_seo_channel_impact(customer_acquisition_channel):
-    if "SEO" in customer_acquisition_channel:
-        # Strength: Proven expertise in leveraging organic search, which is critical in an SGE-impacted landscape.
-        return ("Strengths", "Expertise in SEO optimizing for SGE changes")
-    else:
-        # Weakness: Missing out on organic search opportunities, particularly critical as search engines evolve with SGE.
-        return ("Weaknesses", "Lack of presence in organic search, a missed opportunity with SGE advancements")
 
-def analyze_digital_advertising_impact(customer_acquisition_channel):
-    if "Online Advertising" in customer_acquisition_channel:
-        # Opportunity: Utilizing AI-driven advertising platforms to dynamically adapt to changing consumer behaviors.
-        return ("Opportunities", "Leveraging AI-driven advertising for dynamic market responsiveness")
-    else:
-        # Threat: Falling behind competitors who are capitalizing on the precision and adaptability of AI-driven ads.
-        return ("Threats", "Risk of being outmaneuvered by competitors using AI-driven advertising strategies")
-
-def evaluate_channel_diversification(customer_acquisition_channel):
-    digital_channels = {"Online Advertising", "Social Media", "Email Marketing", "Content Marketing", "SEO"}
-    selected_digital_channels = set(customer_acquisition_channel) & digital_channels
-
-    if len(selected_digital_channels) >= 3:
-        # Strength: Robust digital presence across multiple platforms, enhancing market reach and resilience.
-        return ("Strengths", f"Diversified digital presence across {len(selected_digital_channels)} platforms")
-    elif len(selected_digital_channels) > 0:
-        # Weakness: Limited diversification may not fully capitalize on digital's potential.
-        return ("Weaknesses", "Limited diversification within digital channels")      
         
 def perform_detailed_swot_analysis(user_inputs):
     swot_categories = {"Strengths": [], "Weaknesses": [], "Opportunities": [], "Threats": []}
     
-    analysis_functions = [analyze_seo_channel_impact, analyze_digital_advertising_impact, evaluate_channel_diversification]
-    for func in analysis_functions:
-        result = func(user_inputs["customer_acquisition_channel"])
-        if result:  # Check if result is not None
-            category, message = result
-            swot_categories[category].append(message)
+    if user_inputs["business_model"] in ["E-commerce", "SaaS"]:
+        swot_categories["Opportunities"].append("Digital-first business model well-positioned for online growth")
+    else:
+        swot_categories["Strengths"].append("Diverse business model reduces reliance on single market trends")
 
     if user_inputs["resources_adaptable_to_SGE"] > 75:
         swot_categories["Strengths"].append("High adaptability of resources to SGE changes")
     elif user_inputs["resources_adaptable_to_SGE"] < 25:
         swot_categories["Weaknesses"].append("Low adaptability of resources to SGE changes")
-
+        
+    if user_inputs["reliance_on_SEO"] > 50:
+            swot_categories["Weaknesses"].append("High reliance on SEO poses risk with algorithm changes")
+        else:
+            swot_categories["Strengths"].append("Balanced customer acquisition strategy beyond SEO")
     # Revenue streams resilient to SGE
     if user_inputs["revenue_streams_resilient_to_SGE"] > 75:
         swot_categories["Strengths"].append("Resilient revenue streams to SGE changes")
