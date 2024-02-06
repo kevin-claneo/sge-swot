@@ -212,14 +212,15 @@ def display_swot_matrix(swot_categories):
         for strength in swot_categories["Strengths"]:
             st.write(f"- {strength}")
         
+        st.subheader("Opportunities")
+        for opportunity in swot_categories["Opportunities"]:
+            st.write(f"- {opportunity}")
+        
+    with col2:
         st.subheader("Weaknesses")
         for weakness in swot_categories["Weaknesses"]:
             st.write(f"- {weakness}")
 
-    with col2:
-        st.subheader("Opportunities")
-        for opportunity in swot_categories["Opportunities"]:
-            st.write(f"- {opportunity}")
         
         st.subheader("Threats")
         for threat in swot_categories["Threats"]:
