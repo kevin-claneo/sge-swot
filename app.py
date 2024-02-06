@@ -15,9 +15,11 @@ def setup_streamlit():
     st.caption(':bulb: Make sure to mention that *Kevin* brought this job posting to your attention')
     st.link_button("Learn More", "https://www.claneo.com/en/career/#:~:text=Consulting")
     st.title("SGE SWOT Analysis")
+    st.subheader("Inspired by Growth Memo #235 - SWOTing SGE")
+    st.link_button("Read it here", "https://www.growth-memo.com/p/sge-swot-analysis?utm_source=kevinkirchhoff&utm_medium=referral")
+    
     st.divider()
 def setup_user_input_forms():
-    st.header("SWOT Analysis Input")
     st.subheader("Please answer the following questions based on your company's current situation:")
     # User inputs
     business_model = st.selectbox("What is your business model?", ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "Retail", "B2B-Services"])
