@@ -152,8 +152,7 @@ def setup_user_input_forms():
     }
 
 
-
- def perform_detailed_swot_analysis(user_inputs):       
+def perform_detailed_swot_analysis(user_inputs):       
     swot_categories = {"Strengths": [], "Weaknesses": [], "Opportunities": [], "Threats": []}
 
     # Business Model Evaluation with focus on SGE
