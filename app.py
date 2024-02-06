@@ -16,16 +16,11 @@ def setup_streamlit():
     st.link_button("Learn More", "https://www.claneo.com/en/career/#:~:text=Consulting")
     st.title("SGE SWOT Analysis")
     st.divider()
-
 def setup_user_input_forms():
     st.header("SWOT Analysis Input")
     st.subheader("Please answer the following questions based on your company's current situation:")
-
-    business_model = st.selectbox(
-        "What is your business model?", 
-        ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "Retail", "B2B-Services"]
-    )
-    
+    # User inputs
+    business_model = st.selectbox("What is your business model?", ["E-commerce", "Local business", "SaaS", "Affiliate", "Publisher", "Consumer", "Retail", "B2B-Services"])
     seo_model = st.selectbox(
         "What is your SEO model?", 
         ["Aggregator", "Integrator"], help="""
@@ -38,7 +33,6 @@ def setup_user_input_forms():
         Choose the model that best describes your company's approach.
         """
     )
-    
     competitive_landscape = st.selectbox(
         "What best describes your competitive landscape?", 
         ["Dog fight", "Monopoly", "Emerging", "Stable"], help="""
@@ -52,82 +46,14 @@ def setup_user_input_forms():
         Select the option that best describes the current state of your market.
         """
     )
-    
-    company_size = st.selectbox(
-        "What is your company size?", 
-        ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"]
-    )
-     
-    reliance_on_SEO = st.slider(
-        "What percentage of your customer acquisition relies on SEO?",
-        0, 100, 25, help="0% being no reliance at all, 100% being fully reliant on SEO"
-    )
-    
-    resources_adaptable_to_SGE = st.slider(
-        "Rate the adaptability of your resources to changes brought by SGE", 
-        0, 100, 50, help="0% being not adaptable at all, 100% being fully adaptable"
-    )
-    
-    
-    employees_ready_for_AI = st.slider(
-        "Rate how prepared your workforce is for AI advancements and integration", 
-        0, 100, 50, help="0% being not prepared at all, 100% being fully prepared"
-    )
-    
-    brand_recognized_in_SGE = st.slider(
-        "Rate the recognition of your brand in SGE-driven search results", 
-        0, 100, 50, help="0% being not recognized at all, 100% being highly recognized"
-    )
-    
-    customer_acquisition_channels_diversified = st.slider(
-        "Rate the diversification of your customer acquisition channels beyond organic search", 
-        0, 100, 50, help="0% being not diversified at all, 100% being fully diversified"
-    )
-    
-    content_uniquely_valuable = st.slider(
-        "Rate the uniqueness and value of your content in being difficult to replicate by AI", 
-        0, 100, 50, help="0% being easily replicable, 100% being highly unique and valuable"
-    )
-    
-    market_growing_with_SGE = st.slider(
-        "Rate your perception of the market growth with the advent of SGE", 
-        0, 100, 50, help="0% being shrinking market, 100% being rapidly growing market"
-    )
-    
-    competition_lagging_in_AI_adaptation = st.slider(
-        "Rate how much your competition is lagging in adapting to AI", 
-        0, 100, 50, help="0% being at the same pace or ahead, 100% being significantly behind"
-    )
-    
-    socio_political_trends_supportive_of_AI = st.slider(
-        "Rate the supportiveness of socio-political trends for AI integration in your industry", 
-        0, 100, 50, help="0% being not supportive, 100% being highly supportive"
-    )
-    
-    technological_infrastructure = st.slider(
-        "Rate the advancement of your technological infrastructure for integrating and leveraging AI technologies", 
-        0, 100, 50, help="0% being outdated, 100% being state-of-the-art"
-    )
-    
-    innovation_capability = st.slider(
-        "Rate your company's capability for innovation and adopting new technologies", 
-        0, 100, 50, help="0% being very low capability, 100% being very high capability"
-    )
-    
-    market_trends_awareness = st.slider(
-        "Rate your company's awareness of and active monitoring of market trends related to SGE and AI", 
-        0, 100, 50, help="0% being unaware, 100% being highly aware and actively monitoring"
-    )
-    
-    customer_behavior_changes = st.slider(
-        "Rate the significance of changes in customer behavior due to advancements in AI and search technologies", 
-        0, 100, 50, help="0% being no change, 100% being significant changes observed"
-    )
-    
-    external_economic_factors = st.slider(
-        "Rate the impact of external economic factors on your business (e.g., recession, rapid growth)", 
-        -100, 100, 0, help="-100% being high risk, 100% being high opportunity, 0% being neutral"
-    )
+    company_size = st.selectbox("What is your company size?", ["Micro (1-10 employees)", "Small (11-50 employees)", "Medium (51-250 employees)", "Large (251-500 employees)", "Enterprise (500+ employees)"])
+    reliance_on_SEO = st.slider("What percentage of your customer acquisition relies on SEO?", 0, 100, 25)
+    resources_adaptable_to_SGE = st.slider("Rate the adaptability of your resources to changes brought by generative AI technologies", 0, 100, 50)
+    employees_ready_for_AI = st.slider("Rate how prepared your workforce is for AI advancements and integration", 0, 100, 50)
+    brand_recognition = st.slider("Rate your brand recognition in search engines", 0, 100, 50)
+    content_uniquely_valuable = st.slider("Rate the uniqueness and value of your content in being difficult to replicate by AI", 0, 100, 50)
+    market_trends_awareness = st.slider("Rate your company's awareness of and active monitoring of market trends related to generative AI and search technologies", 0, 100, 50)
+    external_economic_factors = st.slider("Rate the impact of external economic factors on your business", -100, 100, 0)
 
     return {
         "business_model": business_model,
@@ -137,20 +63,12 @@ def setup_user_input_forms():
         "reliance_on_SEO": reliance_on_SEO,
         "resources_adaptable_to_SGE": resources_adaptable_to_SGE,
         "employees_ready_for_AI": employees_ready_for_AI,
-        "brand_recognized_in_SGE": brand_recognized_in_SGE,
-        "customer_acquisition_channels_diversified": customer_acquisition_channels_diversified,
+        "brand_recognition": brand_recognition,
         "content_uniquely_valuable": content_uniquely_valuable,
-        "market_growing_with_SGE": market_growing_with_SGE,
-        "competition_lagging_in_AI_adaptation": competition_lagging_in_AI_adaptation,
-        "socio_political_trends_supportive_of_AI": socio_political_trends_supportive_of_AI,
-        "technological_infrastructure": technological_infrastructure,
-        "innovation_capability": innovation_capability,
         "market_trends_awareness": market_trends_awareness,
-        "customer_behavior_changes": customer_behavior_changes,
         "external_economic_factors": external_economic_factors,
     }
-
-
+    
 def perform_detailed_swot_analysis(user_inputs):       
     swot_categories = {"Strengths": [], "Weaknesses": [], "Opportunities": [], "Threats": []}
 
