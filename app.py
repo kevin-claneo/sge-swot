@@ -132,7 +132,6 @@ def setup_user_input_forms():
     return {
         "business_model": business_model,
         "seo_model": seo_model,
-        "industry": industry,
         "competitive_landscape": competitive_landscape,
         "company_size": company_size,
         "reliance_on_SEO": reliance_on_SEO,
