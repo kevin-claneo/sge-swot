@@ -221,7 +221,7 @@ def perform_detailed_swot_analysis(user_inputs):
     # Industry-specific adjustments
     adjust_for_industry(user_inputs, swot_categories)
 
-return swot_categories
+    return swot_categories
 
 def general_evaluations(user_inputs, swot_categories):
     # Evaluates SEO reliance, content value, competitive landscape, and other general factors
